@@ -90,3 +90,5 @@ ENV/
 
 data/*
 !data/.gitkeep
+!data/swear-words.txt
+!data/stopwords.txt
