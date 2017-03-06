@@ -62,9 +62,9 @@ def stop_words():
     return words
 
 
-def songs_for_artist(artist):
+def songs_for_artist(artist, parent_dir=data_dir()):
     slugged = slugify(artist, only_ascii=True)    
-    artist_dir = os.path.join(data_dir(), slugged)
+    artist_dir = os.path.join(parent_dir, slugged)
     
     if not os.path.isdir(artist_dir):
         raise Exception(artist + " data does not exist.")
@@ -78,6 +78,9 @@ def load_songs(dir_path):
     Returns list of dictionaries.
     """
     song_file = os.path.join(dir_path, 'songs.csv')
+    if not os.path.isfile(song_file):
+        song_file = os.path.join(dir_path, 'songs.tsv')
+    
     first_row = True
     keys = []
     songs = []

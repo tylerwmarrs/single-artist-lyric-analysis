@@ -132,6 +132,20 @@ def write_songs_csv(save_dir, songs):
                 song['lyrics_url'],
                 song['lyrics_file']
             ])
+            
+
+def write_songs_file(song_file, songs):
+    csv_writer = csv.writer(song_file, dialect='excel')
+    csv_writer.writerow(['artist', 'album', 'title', 'lyrics_url', 'lyrics_file'])
+
+    for song in songs:
+        csv_writer.writerow([
+            song['artist'],
+            song['album'],
+            song['title'],
+            song['lyrics_url'],
+            song['lyrics_file']
+        ])
 
 
 def main():
