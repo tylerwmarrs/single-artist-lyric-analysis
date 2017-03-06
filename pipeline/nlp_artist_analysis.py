@@ -16,6 +16,8 @@ mpl.use('Agg')
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
+import matplotlib.pyplot as plt
+
 import pandas as pd
 import seaborn as sns
 
@@ -31,6 +33,12 @@ from fetch_songs_for_artist import *
 from lyricanalysis.proxiedrequest import RefreshingRequestor
 from lyricanalysis import corpus
 from lyricanalysis import utils
+
+
+def clear_plots():
+    plt.clf()
+    plt.cla()
+    plt.close()
 
 
 class CreateDirectories(luigi.Task):
@@ -270,6 +278,8 @@ class MeasureWordFrequency(luigi.Task):
         
         with self.output().open('wb') as out_file:
             word_freq.get_figure().savefig(out_file, dpi='figure')
+            
+        clear_plots()
     
     def output(self):
         output = os.path.join(self.output_dir, 'plots', 'word_frequency_plot.png')
@@ -318,6 +328,8 @@ class SwearWordFrequency(luigi.Task):
         
         with self.output().open('wb') as out_file:
             word_freq.get_figure().savefig(out_file, dpi='figure')
+            
+        clear_plots()
     
     def output(self):
         output = os.path.join(self.output_dir, 'plots', 'swearword_frequency_plot.png')
@@ -400,6 +412,8 @@ class SentimentAnalysis(luigi.Task):
         # save the sentiments
         with self.output()['pickled'].open('wb') as out_file:
             pickle.dump(songs, out_file)
+            
+        clear_plots()
     
     def output(self):
         plot_file = os.path.join(self.output_dir, 'plots', 'sentiment_plot.png')
@@ -440,6 +454,8 @@ class RepetitivenessAnalysis(luigi.Task):
         # save the sentiments
         with self.output()['pickled'].open('wb') as out_file:
             pickle.dump(songs, out_file)
+            
+        clear_plots()
     
     def output(self):
         plot_file = os.path.join(self.output_dir, 'plots', 'repetitiveness_plot.png')
@@ -481,6 +497,8 @@ class SongStatistics(luigi.Task):
 
         with self.output().open('wb') as out_file:
             plot.get_figure().savefig(out_file, dpi='figure')
+            
+        clear_plots()
     
     def output(self):
         output = os.path.join(self.output_dir, 'plots', 'song_statistics_plot.png')
@@ -535,6 +553,8 @@ class AlbumStatistics(luigi.Task):
         
         with self.output().open('wb') as out_file:
             plot.get_figure().savefig(out_file, dpi='figure')
+            
+        clear_plots()
     
     def output(self):
         output = os.path.join(self.output_dir, 'plots', 'album_statistics_plot.png')
