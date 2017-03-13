@@ -318,7 +318,7 @@ class SwearWordFrequency(luigi.Task):
             
         df = pd.DataFrame.from_dict(normalized_word_frequencies, orient='index')
         title = 'Swear Word Frequency\n%s' % (self.artist)
-        word_freq = df.nlargest(5, 0).plot(
+        word_freq = df.nlargest(5, 0)[0:5].plot(
             kind='bar', 
             title=title, 
             legend=False
