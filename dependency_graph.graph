@@ -1,0 +1,26 @@
+digraph G {
+  AllReports -> MeasureWordFrequency;
+  AllReports -> SwearWordFrequency;
+  AllReports -> SentimentAnalysis;
+  AllReports -> RepetitivenessAnalysis;
+  AllReports -> SongStatistics;
+  AllReports -> AlbumStatistics;
+  AllReports -> TopicModeling;
+
+  MeasureWordFrequency -> WordTokenizeAndStemLyrics;
+  WordTokenizeAndStemLyrics -> CleanLyrics;
+  CleanLyrics -> FetchLyrics;
+  FetchLyrics -> FetchArtistSongs;
+  FetchArtistSongs -> ObtainArtistUrl;
+  ObtainArtistUrl -> CreateDirectories;
+
+  SwearWordFrequency -> WordTokenizeAndStemLyrics;
+  SentimentAnalysis -> CleanLyrics;
+  RepetitivenessAnalysis -> CleanLyrics;
+  SongStatistics -> SentimentAnalysis;
+  SongStatistics -> RepetitivenessAnalysis;
+  AlbumStatistics -> SentimentAnalysis;
+  AlbumStatistics -> RepetitivenessAnalysis;
+  TopicModeling -> CleanLyrics;
+
+}
